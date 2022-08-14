@@ -74,3 +74,11 @@ ENV/
 env.bak/
 venv.bak/
 prec/
+prec/Lib/site-packages/
+prec/Lib
+prec
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
