@@ -23,10 +23,12 @@ yarn-error.log*
 .vscode
 .env
 .idea
-/__pycache__
+__pycache__
+__pycache__/
 **/access.log
 **/log.txt
 /Support files
+.vscode/
 
 # Distribution / packaging
 .Python
@@ -71,4 +73,4 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-prec
+prec/
