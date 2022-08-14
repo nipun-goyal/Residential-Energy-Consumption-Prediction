@@ -282,14 +282,13 @@ class FeatureSelector():
 
         # Convert to np array
         features = np.array(features)
-        print(features, features.shape)
         labels = np.array(self.labels).reshape((-1, ))
-        print(labels, labels.shape)
 
         # Empty array for feature importances
         feature_importance_values = np.zeros(len(feature_names))
-        
+        print(labels.shape, features.shape)
         print('Training Gradient Boosting Model\n')
+        
         
         # Iterate through each fold
         for _ in range(n_iterations):
@@ -305,9 +304,7 @@ class FeatureSelector():
                 
             # If training using early stopping need a validation set
             if early_stopping:
-
-                train_features, valid_features, train_labels, valid_labels = train_test_split(features, labels, test_size = 0.15)
-
+                train_features, valid_features, train_labels, valid_labels = train_test_split(features, labels, test_size = 0.15, stratify = labels)
                 # Train the model with early stopping
                 model.fit(train_features, train_labels, eval_metric = eval_metric,
                           eval_set = [(valid_features, valid_labels)],
