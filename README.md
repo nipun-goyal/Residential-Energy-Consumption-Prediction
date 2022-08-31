@@ -32,8 +32,8 @@ The Principal Component Analysis coupled with [FeatureSelector](https://github.c
 
 - In the EDA section, data dimesionality and data types from the RECS survey data were explored. Summary statistics was generated as well to check if there were any outlier values in the dataset. The features that were found to have outliers were later explored in-depth using Box Whisker and Kernel Density Estimate (KDE) plots. Below is a snippet of an output of box and KDE plots that were built.
 
-[Outlier 1](/imgs/outlier1.png)
-[Outlier 2](/imgs/outlier2.png)
+[Outlier 1](imgs/outlier1.png)
+[Outlier 2](imgs/outlier2.png)
 
 Mising values were checked in the dataset. Data Exploration was largely done using scatterViolin, Box-whisker and Distribution plots to understand type, distribution and correlation of variables. Based on the data Exploration,  we applied transformation on data such as, dropping unnecessary columns, converting all to one unit and creation of calculated columns.
 
