@@ -68,7 +68,7 @@ Supervised learning usually starts with linear models. Hence, linear models coup
 Hence, cross validation technique was used to evaluate each model multiple times with different dataset and average score was considered for the decision to choose the final model candidate for evaluation on holdout dataset or test dataset. Cross validation uses k-fold to resample the same dataset multiple times and pretend they are different. With cross validation, as we are evaluating the model, or hyperparameter, the model has to be trained from scratch, each time, without reusing the training result from previous attempts.
 
 ![Baseline Models1](imgs/baseline_models.png)
-![Baseline Models2](imgs/baseline_models_metrics.png)
+![Baseline Models2](imgs/baseline_model_metrics.png)
 
 
 All or Most supervised learning starts with Linear Models. Linear Models provide a varied set of modeling techniques like Ridge, Lasso etc.,
