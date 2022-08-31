@@ -30,19 +30,22 @@ The Principal Component Analysis coupled with [FeatureSelector](https://github.c
 
 #### The RECS 2009 survey data consisted of more than 900 variables collected across housing characteristics, appliances used, fuel types, annual consumption and cost of consumption. 
 
-- In the EDA section, data dimesionality and data types from the RECS survey data were explored. Summary statistics was generated as well to check if there were any outlier values in the dataset. The features that were found to have outliers were later explored in-depth using Box Whisker and Kernel Density Estimate (KDE) plots. Below is a snippet of an output of box and KDE plots that were built.
+- In the EDA section, data dimesionality and data types from the RECS survey data were explored. Summary statistics was generated as well to check if there were any outlier values in the dataset. The features that were found to have outliers were later explored in-depth using Box Whisker and Kernel Density Estimate (KDE) plots. Below are snippets of box and KDE plots that were built. The outliers were identified and later dropped in data preprocessing section. For example, rows with KWH > 80,000 were dropped (only 1 row)
 
-![Outlier 1](imgs/outlier1.png)<hr>
+![Outlier 1](imgs/outlier1.png)
 ![Outlier 2](imgs/outlier2.png)
 
-Mising values were checked in the dataset. Data Exploration was largely done using scatterViolin, Box-whisker and Distribution plots to understand type, distribution and correlation of variables. Based on the data Exploration,  we applied transformation on data such as, dropping unnecessary columns, converting all to one unit and creation of calculated columns.
+- No missing values were found in the dataset. Exploratory Data Analysis was largely done using scatter, bar, box-whisker and Median KWH plot. Median KWH plot is a plot showing median KWH values across different values of discrete numeric variables i.e. the variables whose values exist in a particular range or are countable in a finite amount of time. Below are the snippets of plots compiled in EDA section
 
-- MISSING VALUES TREATMENT : 
-    * Categorical values – Mode used to fill missing values 
-    * Numerical values – median used to fill missing values 
-- OUTLIER TREATMENT:  Using Box plots, outlier were identified and dropped. For example, rows with Total BTU (> 210000) and Total Dollar (> 4000) columns were dropped. 
+![EDA 1](imgs/eda.png)
+![EDA 2](imgs/eda1.png)
+![EDA 3](imgs/eda2.png)
 
-![violin plots](Pictures/violnPlot.png)
+
+
+Distribution plots to understand type, distribution and correlation of variables. Based on the data Exploration,  we applied transformation on data such as, dropping unnecessary columns, converting all to one unit and creation of calculated columns.
+
+
 
 ## PCA and KMeans clustering
 
