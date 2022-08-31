@@ -70,43 +70,21 @@ Hence, cross validation technique was used to evaluate each model multiple times
 ![Baseline Models1](imgs/baseline_models.png)
 ![Baseline Models2](imgs/baseline_model_metrics.PNG)
 
+Above, we evaluated each of the models multiple times with different dataset using cross validation process. From the dataframe and box plots above, we can see that the baseline models more or less perform similar. Let's re-run cross validation after tuning the model hyperparameters
 
-All or Most supervised learning starts with Linear Models. Linear Models provide a varied set of modeling techniques like Ridge, Lasso etc.,
+## Hyperparameter Tuning & Model Comparison
+For the purpose of fine tuning the hyperparameters, `GridSearchCV` was utlized. A cross validation fold of 5 was choosen across 6 models and results can be observed in the snippets below:
 
-To predict RECS price or consumption, we utilize these linear models along with GridSearchCV to fine tune each of the models
+![Tuned Models1](imgs/tuned_models.png)
+![Tuned Models2](imgs/tuned_model_metrics.PNG)
 
-Process we followed, 
-![Linear Modeling Process](Pictures/lr_pic.PNG)
+- 
+From the above rsult of cross validation using GridSearchCV (refer dataframe and box plots above), we can clearly see that the tree based models (i.e. Gradient Boosting Regressor and Xtreme Gradient Boosting XGB) have better RMSE compared to linear models. However; XGB model has the lowest RMSE in comparison to Gradient Boosting Regressor. Hence, we may conclude that XGB is better than GBM. For now, since XGB model is better than other models, we will retrain the model again using the set of best parameters of XGB that GridSearchCV found.
 
-Linear model results,
-![Accuracy and Error results](Pictures/LR_models_results.PNG)
+The reason for retraining the model is that during the cross validation we do not have a lot of data, and the smaller dataset we used previously, had a part of it held out for validation. We believe that combining the training and validation dataset can produce a better model. Hence, we retrain the model of the entire training dataset this time and evaluate the model on our holdout dataset i.e. test dataset. Because this is unseen data, it can help us evaluate the generalization, or out-of-sample, error. This should simulate what the model will do when we deploy it. We do not expect this evaluation score to be very different from that we obtained from cross validation in the previous step, if we did the model training correctly. This can serve as a confirmation for our model selection.
 
-Linear model residual plot,
-![Accuracy and Error results](Pictures/linearModels_residualPlot.png)
+NOTE: The dataset for evaluation on test dataset, and the one we used in cross validation, are different because we do not want data leakage. If they were the same, we would see the same score as we have already seen from the cross validation. After retraining the model, we will use test dataset. Since we used refit = 'rmse' inside GridSearchCV, the best estimator has already been refitted using the best found parameters on the whole training dataset. As a next step, we just need to call predict on gridsearch.best_estimator_ using X_test dataset i.e. holdout because the 'best_estimator' is a pipeline containing both the ColumnTransformer and the trained model that had the best score.
 
-## RandomForest Regressor
-Random Forest method is used to classify the data into classes and predict the mean (regression) of the forest trees to predict Total Dollar 
-
-Process we followed, 
-![RF Modeling Process](Pictures/rf_process_pic.PNG)
-
-RandomForest model results,
-![Accuracy and Error results](Pictures/RF_resuls.PNG)
-
-RandomForest model residual plot,
-![Accuracy and Error results](Pictures/RandomForestResidual.png)
-
-## XGBoost Regressor
-....XGBoost (“Extreme Gradient Boosting”) is one of the Ensemble Algorithms used as regressor  or classifier. With all the previous models yielding results of around 81% r2 value, thus clearly indicating presence of weak predictors. As XGBoost is known for its ability to create a strong model with weak predictors, we decided to use this for predicting total dollar and consumption.  
-
-Process we followed, 
-![XGB Modeling Process](Pictures/xgb_process.PNG)
-
-XGBoost model results,
-![Accuracy and Error results](Pictures/xgb_results.PNG)
-
-XGBoost model regression error plot,
-![Accuracy and Error results](Pictures/xgBoost_regError.png)
 
 ## Model Comparison
 ...Using SKLearn.Cross_validate function, we peformed a comparison of the 7 models, both base and tuned version. 
