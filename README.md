@@ -78,26 +78,8 @@ For the purpose of fine tuning the hyperparameters, `GridSearchCV` was utlized. 
 ![Tuned Models1](imgs/tuned_models.png)
 ![Tuned Models2](imgs/tuned_model_metrics.PNG)
 
-- 
-From the above rsult of cross validation using GridSearchCV (refer dataframe and box plots above), we can clearly see that the tree based models (i.e. Gradient Boosting Regressor and Xtreme Gradient Boosting XGB) have better RMSE compared to linear models. However; XGB model has the lowest RMSE in comparison to Gradient Boosting Regressor. Hence, we may conclude that XGB is better than GBM. For now, since XGB model is better than other models, we will retrain the model again using the set of best parameters of XGB that GridSearchCV found.
-
-The reason for retraining the model is that during the cross validation we do not have a lot of data, and the smaller dataset we used previously, had a part of it held out for validation. We believe that combining the training and validation dataset can produce a better model. Hence, we retrain the model of the entire training dataset this time and evaluate the model on our holdout dataset i.e. test dataset. Because this is unseen data, it can help us evaluate the generalization, or out-of-sample, error. This should simulate what the model will do when we deploy it. We do not expect this evaluation score to be very different from that we obtained from cross validation in the previous step, if we did the model training correctly. This can serve as a confirmation for our model selection.
-
-NOTE: The dataset for evaluation on test dataset, and the one we used in cross validation, are different because we do not want data leakage. If they were the same, we would see the same score as we have already seen from the cross validation. After retraining the model, we will use test dataset. Since we used refit = 'rmse' inside GridSearchCV, the best estimator has already been refitted using the best found parameters on the whole training dataset. As a next step, we just need to call predict on gridsearch.best_estimator_ using X_test dataset i.e. holdout because the 'best_estimator' is a pipeline containing both the ColumnTransformer and the trained model that had the best score.
-
-
-## Model Comparison
-...Using SKLearn.Cross_validate function, we peformed a comparison of the 7 models, both base and tuned version. 
-
-- In the base models,  we see that all the models perform on par except LassoCV which had the lowest accuracy of about 70%
-- Once the models were tuned using hyper-parameters, the cross-validate was re-run against the tuned models.
-- The results show that all Linear models (post tuning) have the same accuracy. However tree based models (RF and XGBoost) have better accuracy.
-
-Model Performances are depicted below,
-![Model Performances](Pictures/model_compare.PNG)
-
-Results of RMSE and r2,
-![Models results](Pictures/model_comparison_results.PNG)
+- The results show that the linear models, Lasso and Ridge, have identical average RMSE and r<sup>2</sup> scores
+- The tree based model, Xtreme Gradient Boosting (XGB) has the best RMSE compared to all other linear and tree based models
 
 ## How to Run
 
