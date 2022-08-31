@@ -52,23 +52,25 @@ The PCA Elbow curve below shows features that explain most of the variance (abov
 Post Data Transformation and Preprocessing, we had 428 features that were put through feature engineering to optimise the dimensions.
 
 `FeatureSelector` class used five methods to identify the features to remove:
-- Features with a high percentage of missing values (60%)
-- Collinear (highly correlated) features
-- Features with zero importance in a tree-based model
-- Features with low importance
+- Features with a high percentage (60%) of missing values
+- Collinear (highly correlated, 98% correlation) features
+- Features with zero importance after one hot encoding in a tree-based model
+- Features with low importance (i.e. where cumulative importance is below the threshold of 90 %)
 - Features with a single unique value
-
-
-- Missing Values – Any feature with 60% of data missing is removed.
-- Single Unique Values- Any constant Values across the dataset is removed. 
-- Collinear Features-Identify features with 98% correlation. 
-- Zero Importance Features – Identify zero importance features after one hot encoding. 
-- Low Importance Features-Identify features with Low importance (i.e. where cumulative importance is below the threshold of 95 %) 
-
 ![Feature Importance0](imgs/feature_importance.png)
 ![Feature Importance1](imgs/feature_importance1.png)
 
-## Linear Models
+Post feature selection, the original number of 428 features were reduced to 216 features.
+
+## Baseline Models
+Supervised learning usually starts with linear models. Hence, linear models coupled with ensemble methods were built and then trained using the defauly hyperparameters to form our baseline models. If we were to fit the model with the training set while evaluated with the test set, we obtained only a single sample point of evaluation with one test set. How can we be sure it is an accurate evaluation, rather than a value too low or too high by chance? If we have two models, and found that one model is better than another based on the evaluation, how can we know this is also not by chance?
+
+Hence, cross validation technique was used to evaluate each model multiple times with different dataset and average score was considered for the decision to choose the final model candidate for evaluation on holdout dataset or test dataset. Cross validation uses k-fold to resample the same dataset multiple times and pretend they are different. With cross validation, as we are evaluating the model, or hyperparameter, the model has to be trained from scratch, each time, without reusing the training result from previous attempts.
+
+![Baseline Models1](imgs/baseline_models.png)
+![Baseline Models2](imgs/baseline_models_metrics.png)
+
+
 All or Most supervised learning starts with Linear Models. Linear Models provide a varied set of modeling techniques like Ridge, Lasso etc.,
 
 To predict RECS price or consumption, we utilize these linear models along with GridSearchCV to fine tune each of the models
