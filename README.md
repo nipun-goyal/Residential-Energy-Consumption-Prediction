@@ -3,10 +3,10 @@
 Contents:
 - [Project Overview](#overview)
 - [Exploratory Data Analysis and Data Transformation & Preprocessing](#eda-and-data-transformation--preprocessing)
-- [Principal Component Analysis]()
-- [Feature Selector]()
-- [Model Comparison]()
-- [How to Run](#How-to-Run)
+- [Principal Component Analysis](#principal-component-analysis-pca)
+- [Feature Selector](#feature-selector)
+- [Hyperparameter Tuning & Model Comparison](#hyperparameter-tuning--model-comparison)
+- [How to Run](#how-to-run)
 
 
 ## Overview
