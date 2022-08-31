@@ -27,25 +27,25 @@ The Principal Component Analysis coupled with [FeatureSelector](https://github.c
 
 #### The RECS 2009 survey data consisted of more than 900 variables collected across housing characteristics, appliances used, fuel types, annual consumption and cost of consumption. 
 
-- In the EDA section, data dimesionality and data types from the RECS survey data were explored. Summary statistics was generated as well to check if there were any outlier values in the dataset. The features that were found to have outliers were later explored in-depth using Box Whisker and Kernel Density Estimate (KDE) plots. Below are snippets of box and KDE plots that were built. The outliers were identified and later dropped in data preprocessing section. For example, rows with KWH > 80,000 were dropped (only 1 row)
+- In the EDA section, data dimesionality and data types from the RECS survey data were explored. Summary statistics was generated as well to check if there were any outlier values in the dataset. The features that were found to have outliers were later explored in-depth using Box Whisker and Kernel Density Estimate (KDE) plots. Below are snippets of box and KDE plots that were built. The outliers were identified and later dropped in data preprocessing section. For example, rows with kWH > 80,000 were dropped (only 1 row)
 
 ![Outlier 1](imgs/outlier1.png)
 ![Outlier 2](imgs/outlier2.png)
 
-- No missing values were found in the dataset. Exploratory Data Analysis was largely done using scatter, bar, box-whisker and Median KWH plot to understand the relationship between variables. Median KWH plot is a plot showing median KWH values across different values of discrete numeric variables i.e. the variables whose values exist in a particular range or are countable in a finite amount of time. Below are the snippets of plots compiled in EDA section
+- No missing values were found in the dataset. Exploratory Data Analysis was largely done using scatter, bar, box-whisker and Median KWH plot to understand the relationship between variables. Median KWH plot shows median KWH values across different values of discrete numeric variables (Note: Discrete numeric variables are those variables whose values exist in a particular range or are countable in a finite amount of time. Below are the snippets of plots compiled in EDA section:
 
 ![EDA 1](imgs/eda.png)
 ![EDA 2](imgs/eda1.png)
 ![EDA 3](imgs/eda2.png)
 
-Based on the data Exploration, various transformations on data was performed such as, merging features, merging levels of discrete predictor features because of their low frequency count, removing the features with high number of Not Applicable (NA) values, removing imputation flags i.e. columns starting with 'Z', removing duplicate features, dropping unnecessary columns and lastly removing outliers (just one row with KWH > 80,000)
+Based on the data Exploration, various transformations on data was performed such as, merging features, merging levels of discrete predictor features because of their low frequency count, removing the features with high number of Not Applicable (NA) values, removing imputation flags i.e. columns starting with 'Z', removing duplicate features, dropping unnecessary columns and lastly removing outliers (just one row with kWH > 80,000)
 
 ## Principal Component Analysis (PCA)
 
 **Principal Component Analysis (PCA) is a dimension-reduction tool. Plugging in the whole dataset through PCA, the scree plot looks for elbow criterion (or bend) in the curve to show how many features can be used to include in the model.** 
 
-The PCA Elbow curve below shows features that explain most of the variance (above 95%). Approximately, 200 features result in variance close to ~ 95%. The PCA analysis gives us a ballpark estimate of the number of features that explains majority of the variation in the dataset and hence can be used for data modeling.
-![PCA1](imgs/pca1.png)
+The PCA cumulative variance plot below shows features that explain most of the variance (above 95%). Approximately, 200 features result in variance close to ~ 95%. The PCA analysis gives us a ballpark estimate of the number of features that explains majority of the variation in the dataset and hence can be used for data modeling.
+![PCA1](imgs/pca.png)
 
 
 ## Feature Selector
@@ -63,14 +63,14 @@ Post Data Transformation and Preprocessing, we had 428 features that were put th
 Post feature selection, the original number of 428 features were reduced to 216 features.
 
 ## Baseline Models
-Supervised learning usually starts with linear models. Hence, linear models coupled with ensemble methods were built and then trained using the defauly hyperparameters to form our baseline models. If we were to fit the model with the training set while evaluated with the test set, we obtained only a single sample point of evaluation with one test set. How can we be sure it is an accurate evaluation, rather than a value too low or too high by chance? If we have two models, and found that one model is better than another based on the evaluation, how can we know this is also not by chance?
+Supervised learning usually starts with linear models. Hence, linear models coupled with ensemble methods were built and then trained using the default hyperparameters to form our baseline models. If we were to fit the model with the training set while evaluated with the test set, we obtained only a single sample point of evaluation with one test set. How can we be sure it is an accurate evaluation, rather than a value too low or too high by chance? If we have two models, and found that one model is better than another based on the evaluation, how can we know this is also not by chance?
 
 Hence, cross validation technique was used to evaluate each model multiple times with different dataset and average score was considered for the decision to choose the final model candidate for evaluation on holdout dataset or test dataset. Cross validation uses k-fold to resample the same dataset multiple times and pretend they are different. With cross validation, as we are evaluating the model, or hyperparameter, the model has to be trained from scratch, each time, without reusing the training result from previous attempts.
 
 ![Baseline Models1](imgs/baseline_models.png)
 ![Baseline Models2](imgs/baseline_model_metrics.PNG)
 
-Above, we evaluated each of the models multiple times with different dataset using cross validation process. From the dataframe and box plots above, we can see that the baseline models more or less perform similar. Let's re-run cross validation after tuning the model hyperparameters
+Above, we evaluated each of the models multiple times with different dataset using cross validation process. From the table and box plot presented above, we can see that the baseline models more or less perform similar. Let's re-run cross validation after tuning the model hyperparameters
 
 ## Hyperparameter Tuning & Model Comparison
 For the purpose of fine tuning the hyperparameters, `GridSearchCV` was utlized. A cross validation fold of 5 was choosen across 6 models and results can be observed in the snippets below:
