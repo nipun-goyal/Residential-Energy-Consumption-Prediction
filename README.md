@@ -1,14 +1,11 @@
 # [Residential Energy Prediction](https://github.com/nipun-goyal/Residential-Energy-Consumption-Prediction)
 
 Contents:
-- [Project Overview](#)
-- [Exploratory Data Analysis and Data Transformation & Preprocessing]()
+- [Project Overview](#overview)
+- [Exploratory Data Analysis and Data Transformation & Preprocessing](#eda-and-data-transformation--preprocessing)
 - [Principal Component Analysis]()
 - [Feature Selector]()
-- [Linear Models](#Linear-Models)
-- [RandomForest Regressor](#RandomForest-Regressor)
-- [XGBoost Regressor](#XGBoost-Regressor)
-- [Model Comparison](#Model-Comparison)
+- [Model Comparison]()
 - [How to Run](#How-to-Run)
 
 
@@ -35,54 +32,41 @@ The Principal Component Analysis coupled with [FeatureSelector](https://github.c
 ![Outlier 1](imgs/outlier1.png)
 ![Outlier 2](imgs/outlier2.png)
 
-- No missing values were found in the dataset. Exploratory Data Analysis was largely done using scatter, bar, box-whisker and Median KWH plot. Median KWH plot is a plot showing median KWH values across different values of discrete numeric variables i.e. the variables whose values exist in a particular range or are countable in a finite amount of time. Below are the snippets of plots compiled in EDA section
+- No missing values were found in the dataset. Exploratory Data Analysis was largely done using scatter, bar, box-whisker and Median KWH plot to understand the relationship between variables. Median KWH plot is a plot showing median KWH values across different values of discrete numeric variables i.e. the variables whose values exist in a particular range or are countable in a finite amount of time. Below are the snippets of plots compiled in EDA section
 
 ![EDA 1](imgs/eda.png)
 ![EDA 2](imgs/eda1.png)
 ![EDA 3](imgs/eda2.png)
 
+Based on the data Exploration, various transformations on data was performed such as, merging features, merging levels of discrete predictor features because of their low frequency count, removing the features with high number of Not Applicable (NA) values, removing imputation flags i.e. columns starting with 'Z', removing duplicate features, dropping unnecessary columns and lastly removing outliers (just one row with KWH > 80,000)
 
+## Principal Component Analysis (PCA)
 
-Distribution plots to understand type, distribution and correlation of variables. Based on the data Exploration,  we applied transformation on data such as, dropping unnecessary columns, converting all to one unit and creation of calculated columns.
+**Principal Component Analysis (PCA) is a dimension-reduction tool. Plugging in the whole dataset through PCA, the scree plot looks for elbow criterion (or bend) in the curve to show how many features can be used to include in the model.** 
 
+The PCA Elbow curve below shows features that explain most of the variance (above 95%). Approximately, 200 features result in variance close to ~ 95%. The PCA analysis gives us a ballpark estimate of the number of features that explains majority of the variation in the dataset and hence can be used for data modeling.
+![PCA1](imgs/pca1.png)
 
-
-## PCA and KMeans clustering
-
-**Principle Component Analysis (PCA) is a dimension-reduction tool. Plugging in the data from the combined set through PCA an elbow curve is created to show how many features can be used to predict model accuracy.**
-
-- Creating a scree plot of the results shows which components has a higher percentage of explained variance.
-
-- The columns names from the RESC plot are represented as PC1, PC2, etc. A comparison can then be made between two components to further analyze the relationship between their data and the other features. 
-
-PCA Elbow curve showing features that explain most of the variance (above 95%)
-![PCA Elbow curve](Pictures/PCAelbow.png)
-
-An example of PCA correlation - variance plot - ![PCA correlation plt](Pictures/PCAscatter.png)
-
-
-### KMeans clustering
-**After exporting the PCA components, we reimport the new CSV to use for KMeans Clustering. KMeans can be used to determine clusters of data and make decisions based off the clusters which values you can exclude to increase accuracy.**
-
-- Using the variable REGIONC and TOTALBTU, the KMeans elbow curve shows the clusters needed to group the data is between 8 and 10, when the curve flattens at 0 score value. 
-![Kmeans cluster determinant](Pictures/KMEANSelbow.png)
-
-- Creating a scatter plot of 10 clusters with the PCA transformed x and y plots (REGIONC and TOTALBTU), the graph shows alot of the data in general correlates to predicting the values of x and y, with another cluster that does not correlate and can be reduced from the data set. 
-
-![KMeans Clusters](Pictures/KMEANSCluser.png)
 
 ## Feature Selector
-Post Data Merging and Transformation, we had 185 features that were put through feature engineering to optimise dimensions.
+Post Data Transformation and Preprocessing, we had 428 features that were put through feature engineering to optimise the dimensions.
 
-Feature Selector used five methods used to identify features to remove:
+`FeatureSelector` class used five methods to identify the features to remove:
+- Features with a high percentage of missing values (60%)
+- Collinear (highly correlated) features
+- Features with zero importance in a tree-based model
+- Features with low importance
+- Features with a single unique value
+
+
 - Missing Values – Any feature with 60% of data missing is removed.
 - Single Unique Values- Any constant Values across the dataset is removed. 
 - Collinear Features-Identify features with 98% correlation. 
 - Zero Importance Features – Identify zero importance features after one hot encoding. 
 - Low Importance Features-Identify features with Low importance (i.e. where cumulative importance is below the threshold of 95 %) 
 
-![Feature Importance](Pictures/featureSelector_top20.png)
-![Feature Selector cummulative gain](Pictures/featureSelector_elbowcurve.png)
+![Feature Importance0](imgs/feature_importance.png)
+![Feature Importance1](imgs/feature_importance1.png)
 
 ## Linear Models
 All or Most supervised learning starts with Linear Models. Linear Models provide a varied set of modeling techniques like Ridge, Lasso etc.,
